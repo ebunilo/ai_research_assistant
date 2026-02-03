@@ -2,7 +2,7 @@ from google.adk.agents.llm_agent import Agent
 
 def greeting_tool() -> str:
     """Returns a warm friendly greeting."""
-    return "Hello from your specialised greeting tool. Welcome!"
+    return "Hello from your specialized greeting tool. Welcome!"
 
 root_agent = Agent(
     model='gemini-2.5-flash',

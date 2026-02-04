@@ -41,7 +41,9 @@ COPY --from=builder /root/.local /root/.local
 
 # Copy application code
 COPY research_assistant/ ./research_assistant/
-COPY README.md .
+
+# Create .adk directory for ADK agent discovery
+RUN mkdir -p /app/.adk
 
 # Create directory for reports
 RUN mkdir -p /app/reports

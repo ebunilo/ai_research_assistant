@@ -1,1 +1,9 @@
-from . import agent
+"""
+Research Assistant package.
+
+Exports the root_agent for ADK discovery.
+"""
+
+from .agent import root_agent
+
+__all__ = ["root_agent"]

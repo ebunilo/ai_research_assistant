@@ -47,11 +47,11 @@ COPY README.md .
 RUN mkdir -p /app/reports
 
 # Expose port for ADK web interface
-EXPOSE 8000
+EXPOSE 8020
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:8020/health || exit 1
 
 # Run the ADK agent server
-CMD ["adk", "web", "--host", "0.0.0.0", "--port", "8000", "research_assistant"]
+CMD ["adk", "web", "--host", "0.0.0.0", "--port", "8020", "research_assistant"]

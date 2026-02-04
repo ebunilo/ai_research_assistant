@@ -1,3 +1,12 @@
+"""
+AI Research Assistant Agent module.
+
+This module implements an intelligent research assistant that automates the
+complete research workflow. The agent orchestrates multi-source data gathering
+from Wikipedia, arXiv, and Google Search, then synthesizes the findings into
+a coherent report.
+"""
+
 import wikipedia
 import arxiv
 from google.adk.tools.google_search_tool import GoogleSearchTool
@@ -6,10 +15,14 @@ from google.adk.agents.llm_agent import LlmAgent
 
 def wikipedia_tool(query: str) -> str:
     """
-    Searches Wikipedia for a given query and returns a summary of the top result.
+    Search Wikipedia for a given query and return a summary of the top result.
 
     Args:
         query (str): The search term to look up on Wikipedia.
+
+    Returns:
+        str: A summary of the Wikipedia article, or an error message if the
+            search fails or the page is not found.
     """
     try:
         # The summary method automatically finds the best-matching page
@@ -28,10 +41,14 @@ def wikipedia_tool(query: str) -> str:
 
 def arxiv_tool(query: str) -> str:
     """
-    Searches the arXiv repository for academic papers matching a query.
+    Search the arXiv repository for academic papers matching a query.
 
     Args:
         query (str): The topic to search for academic papers on.
+
+    Returns:
+        str: Formatted string containing titles, summaries, and URLs of
+            matching papers, or an error message if the search fails.
     """
     try:
         # Create a client to interact with the arXiv API
@@ -53,17 +70,23 @@ def arxiv_tool(query: str) -> str:
             return f"No academic papers found on arXiv for the query '{query}'."
             
         return "\n---\n".join(results)
-        
+
     except Exception as e:
         return f"An unexpected error occurred while searching arXiv: {e}"
-        
+
+
 def report_writer_tool(content: str, filename: str) -> str:
     """
-    Writes the given content to a local file. Appends if the file already exists.
+    Write the given content to a local file. Append if the file already exists.
 
     Args:
         content (str): The text content to write to the file.
-        filename (str): The name of the file to save the content in (e.g., 'report.txt').
+        filename (str): The name of the file to save the content in
+            (e.g., 'report.txt').
+
+    Returns:
+        str: A success message confirming the content was written, or an
+            error message if the write operation fails.
     """
     try:
         # Use 'a' for append mode. This will create the file if it doesn't exist,
@@ -82,9 +105,9 @@ You must follow these steps in order:
 1.  First, gather background information on the topic using the wikipedia_tool.
 2.  Next, find relevant academic papers using the arxiv_tool.
 3.  Then, find supplementary web articles using the google_search tool.
-4.  Finally, synthesize all the information you have gathered from all sources into a 
-    coherent report and use the report_writer_tool to save this complete report 
-    to a file named 'report.txt'.
+4.  Finally, synthesize all the information you have gathered from all
+    sources into a coherent report and use the report_writer_tool to save
+    this complete report to a file named 'report.txt'.
 """
 
 # Define the complete agent

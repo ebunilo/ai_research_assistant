@@ -1,3 +1,10 @@
+"""
+Research assistant agent module for gathering and synthesizing information.
+
+This module provides tools and agent configuration for researching topics
+using Wikipedia, arXiv, and Google Search, then generating comprehensive
+reports from the gathered information.
+"""
 import wikipedia
 import arxiv
 from google.adk.tools.google_search_tool import GoogleSearchTool

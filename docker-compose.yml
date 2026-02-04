@@ -34,7 +34,3 @@ services:
 networks:
   research-network:
     driver: bridge
-
-volumes:
-  reports:
-    driver: local

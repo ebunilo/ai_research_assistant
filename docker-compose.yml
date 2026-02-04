@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   research-assistant:
     build:
@@ -18,11 +16,11 @@ services:
       - ./reports:/app/reports
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8020/health"]
+      test: ["CMD-SHELL", "curl -sf http://localhost:8020/ || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 10s
+      start_period: 30s
     networks:
       - research-network
     logging:

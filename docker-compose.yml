@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  research-assistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: research-assistant
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_GENAI_USE_VERTEXAI=${GOOGLE_GENAI_USE_VERTEXAI:-0}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    env_file:
+      - .env
+    volumes:
+      # Persist generated reports
+      - ./reports:/app/reports
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - research-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  research-network:
+    driver: bridge
+
+volumes:
+  reports:
+    driver: local

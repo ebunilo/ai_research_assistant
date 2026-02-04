@@ -55,5 +55,5 @@ EXPOSE 8020
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD curl -sf http://localhost:8020/ || exit 1
 
-# Run the ADK agent server
-CMD ["adk", "web", "--host", "0.0.0.0", "--port", "8020", "research_assistant"]
+# Run the ADK agent server with explicit path to agent directory
+CMD ["adk", "web", "--host", "0.0.0.0", "--port", "8020", "--agent-path", "/app/research_assistant"]
